@@ -10,7 +10,7 @@ const (
 	screenWidth      = 800
 	screenHeight     = 600
 	cellSize         = 10
-	accelerationRate = 0.2
+	accelerationRate = 0.5
 )
 
 type cellState struct {
@@ -108,7 +108,7 @@ func main() {
 			for y := gridHeight - 1; y >= 0; y-- {
 				if cells[x][y].active && cells[x][y].falling {
 					//update the speed and position acceleration
-					cells[x][y].ySpeed += accelerationRate * float64(deltaTime) * 60
+					cells[x][y].ySpeed += accelerationRate * float64(deltaTime)
 					cells[x][y].yPos += cells[x][y].ySpeed
 
 					//check if at bottom or for a cell
