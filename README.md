@@ -1,6 +1,6 @@
 # 🧬 Cell-Grid
 
-Welcome to **Cell-Grid**! This is a fun and interactive Go application built using the [Raylib](https://www.raylib.com/) library. It simulates falling cells on a grid, with features like toggling cell states, applying gravity, and enabling a rainbow color mode. Perfect for experimenting with cellular physics and visualizations! 🎨
+ **Cell-Grid**! is a fun and interactive Go application built using the [Raylib](https://www.raylib.com/) library. It simulates falling cells on a grid, with features like toggling cell states, applying gravity, and enabling a rainbow color mode. Perfect for experimenting with cellular physics and visualizations! 🎨
 
 ---
 
