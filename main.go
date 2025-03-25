@@ -46,7 +46,6 @@ func main() {
 
 	for !rl.WindowShouldClose() {
 
-		//Get DeltaTime for smoother physics
 		deltaTime := rl.GetFrameTime()
 
 		if rl.IsKeyPressed(rl.KeyR) {
@@ -66,7 +65,6 @@ func main() {
 					}
 				}
 			} else {
-				// if rainbowtrigger is off, all colors are set to white
 				for i := range cells {
 					for j := range cells[i] {
 						cells[i][j].color = rl.White
@@ -75,7 +73,6 @@ func main() {
 			}
 		}
 
-		//Check for mouse-click
 		if rl.IsMouseButtonPressed(rl.MouseLeftButton) {
 			mouseX := rl.GetMouseX()
 			mouseY := rl.GetMouseY()
@@ -83,7 +80,6 @@ func main() {
 			gridX := mouseX / cellSize
 			gridY := mouseY / cellSize
 
-			//change state on/off
 			if gridX >= 0 && gridX < int32(gridWidth) && gridY >= 0 && gridY < int32(gridHeight) {
 				cells[gridX][gridY].active = !cells[gridX][gridY].active
 
@@ -92,7 +88,6 @@ func main() {
 					cells[gridX][gridY].ySpeed = 0
 				}
 
-				//If cell become active and rainbowTrigger is on, give it a random color
 				if cells[gridX][gridY].active && rainbowTriggered {
 					cells[gridX][gridY].color = rl.Color{
 						R: uint8(rand.Intn(256)),
@@ -107,11 +102,9 @@ func main() {
 		for x := 0; x < gridWidth; x++ {
 			for y := gridHeight - 1; y >= 0; y-- {
 				if cells[x][y].active && cells[x][y].falling {
-					//update the speed and position acceleration
 					cells[x][y].ySpeed += accelerationRate * float64(deltaTime)
 					cells[x][y].yPos += cells[x][y].ySpeed
 
-					//check if at bottom or for a cell
 					gridYPos := int(cells[x][y].yPos)
 
 					if gridYPos >= gridHeight-1 || (gridYPos+1 < gridHeight && gridYPos != y && cells[x][gridYPos+1].active) {
@@ -125,7 +118,6 @@ func main() {
 							cells[x][gridYPos].yPos = float64(gridYPos)
 							cells[x][gridYPos].ySpeed = 0
 
-							//remove old position
 							cells[x][y] = cellState{
 								active:  false,
 								color:   rl.White,
@@ -134,7 +126,6 @@ func main() {
 								ySpeed:  0,
 							}
 						} else {
-							// cell stop falling
 							cells[x][y].falling = false
 						}
 					}
@@ -142,11 +133,9 @@ func main() {
 			}
 		}
 
-		//begin draw
 		rl.BeginDrawing()
 		rl.ClearBackground(rl.Black)
 
-		//draw the grid
 		for x := 0; x < screenWidth; x += cellSize {
 			rl.DrawLine(int32(x), 0, int32(x), int32(screenHeight), rl.DarkGray)
 		}
@@ -155,7 +144,6 @@ func main() {
 			rl.DrawLine(0, int32(y), int32(screenWidth), int32(y), rl.DarkGray)
 		}
 
-		//create active cells
 		for i := range cells {
 			for j := range cells[i] {
 				if cells[i][j].active {
